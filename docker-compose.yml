@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  nice_app:
+    image: "nice_app"
+    container_name: "nice_app"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - nice_postgres
+    links:
+      - nice_postgres
+  nice_postgres:
+    image: "postgres"
+    container_name: "nice_postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_DB=test_db
+  pgadmin:
+    image: "dpage/pgadmin4"
+    container_name: "pgadmin"
+    environment:
+      PGADMIN_DEFAULT_EMAIL:
+        noemail@noemail.ru
+      PGADMIN_DEFAULT_PASSWORD:
+        test
+    ports:
+    - "5050:80"
